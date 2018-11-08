@@ -130,9 +130,11 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
                     y += self.ring[i] * scale
 
             x = y = 10 + scale * (self.ring[0] - self.deb[0]) / 2
+            local_angle = self.angle
             for i in range(0, self.count):
+                local_angle = -local_angle
                 ge_item = QtWidgets.QGraphicsEllipseItem()
-                ge_item.setStartAngle((i + 1) * self.angle * 16)
+                ge_item.setStartAngle((i + 1) * local_angle * 16)
                 ge_item.setSpanAngle(2880)
                 ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
                 ge_item.setPen(QtGui.QPen(QtGui.QColor(255,0,0), 1, QtCore.Qt.SolidLine))
@@ -144,9 +146,11 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
             x = 10 + scale * self.ring[0] + (self.ring[0] * scale - self.deb[0] * scale) / 2
             y = 10 + (self.ring[0] * scale - self.deb[0] * scale) / 2
+            local_angle = self.angle
             for i in range(0, self.count):
+                local_angle = -local_angle
                 ge_item = QtWidgets.QGraphicsEllipseItem()
-                ge_item.setStartAngle((i + 1) * -self.angle * 16)
+                ge_item.setStartAngle((i + 1) * -local_angle * 16)
                 ge_item.setSpanAngle(2880)
                 ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
                 ge_item.setPen(QtGui.QPen(QtGui.QColor(255,0,0), 1, QtCore.Qt.SolidLine))
