@@ -314,6 +314,12 @@
              <property name="text">
               <string>|&gt;</string>
              </property>
+             <property name="autoRepeat">
+              <bool>true</bool>
+             </property>
+             <property name="autoRepeatInterval">
+              <number>50</number>
+             </property>
             </widget>
            </item>
            <item row="1" column="0">
@@ -345,6 +351,12 @@
              </property>
              <property name="text">
               <string>&lt;|</string>
+             </property>
+             <property name="autoRepeat">
+              <bool>true</bool>
+             </property>
+             <property name="autoRepeatInterval">
+              <number>50</number>
              </property>
             </widget>
            </item>

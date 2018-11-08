@@ -98,7 +98,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
     def pushButton_2_clicked(self):
         if len(self.ring) > 0:
-            self.angle += 15
+            self.angle += 4
             self.new_PalletScene_paint()
 
 
@@ -108,7 +108,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
     def pushButton_4_clicked(self):
         if len(self.ring) > 0:
-            self.angle -= 15
+            self.angle -= 4
             self.new_PalletScene_paint()
 
 
