@@ -17,6 +17,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.graf = plt.figure()
         self.static_canvas = FigureCanvas(self.graf)
         self.horizontalLayout.addWidget(self.static_canvas)
+        self.new_dot = None
         plt.grid()
 
         self.h = 0.005
@@ -32,6 +33,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
 
     def pushButton_clicked(self):
+        self.angle = 0
         self.count = self.spinBox.value()
         x = [x * self.h for x in range(-int(math.pi / self.h), int(math.pi / self.h))]
         y = []
@@ -90,6 +92,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         if len(self.ring) > 0:
             self.angle = (self.angle - 1) % 360
             self.new_PalletScene_paint()
+            self.paint_new_dot()
 
 
     def pushButton_3_clicked(self):
@@ -103,6 +106,18 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         if len(self.ring) > 0:
             self.angle = (self.angle + 1) % 360
             self.new_PalletScene_paint()
+            self.paint_new_dot()
+
+
+    def paint_new_dot(self):
+        if self.new_dot:
+            self.new_dot.pop(0).remove()
+        radian_angle = math.radians(self.angle) - math.pi
+        for X, Y, in self.xy_list:
+            if abs(X - radian_angle) < 0.01:
+                self.new_dot = plt.plot(X, Y, 'o', color = (0, 0, 0))
+                self.static_canvas.draw()
+                return
 
 
     def new_PalletScene_paint(self):
