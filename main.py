@@ -46,7 +46,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             summa.clear()
 
         self.xy_list = tuple(zip(x, y))
-        plt.plot(x, y, linewidth=1)
+        plt.plot(x, y, linewidth=2)
         self.static_canvas.draw()
 
         min_y = min(y)
@@ -90,7 +90,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
     def pushButton_2_clicked(self):
         if len(self.ring) > 0:
-            self.angle = (self.angle - 1) % 360
+            self.angle = (self.angle +  5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
 
@@ -104,7 +104,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
     def pushButton_4_clicked(self):
         if len(self.ring) > 0:
-            self.angle = (self.angle + 1) % 360
+            self.angle = (self.angle - 5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
 
