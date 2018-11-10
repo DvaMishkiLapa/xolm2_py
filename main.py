@@ -12,7 +12,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.graphicsView.rotate(180)
+        self.ringView.rotate(180)
 
         self.graf = plt.figure()
         self.static_canvas = FigureCanvas(self.graf)
@@ -26,22 +26,22 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.ring = []
         self.deb = []
 
-        self.pushButton.clicked.connect(self.pushButton_clicked)
-        self.pushButton_2.clicked.connect(self.pushButton_2_clicked)
-        self.pushButton_3.clicked.connect(self.pushButton_3_clicked)
-        self.pushButton_4.clicked.connect(self.pushButton_4_clicked)
+        self.buildButton.clicked.connect(self.buildButton_clicked)
+        self.plusAngleButton.clicked.connect(self.plusAngleButton_clicked)
+        self.clearGrafButton.clicked.connect(self.clearGrafButton_clicked)
+        self.minusAngleButton.clicked.connect(self.minusAngleButton_clicked)
 
 
-    def pushButton_clicked(self):
+    def buildButton_clicked(self):
         self.angle = 0
-        self.count = self.spinBox.value()
+        self.count = self.countRingSpinBox.value()
         x = [x * self.h for x in range(-int(math.pi / self.h), int(math.pi / self.h))]
         y = []
 
         for X in x:
             summa = []
             for j in range(0, self.count):
-                summa.append((self.count - j) / self.count * math.cos((j + 1)**(self.doubleSpinBox.value() / 2) * X))
+                summa.append((self.count - j) / self.count * math.cos((j + 1)**(self.timeSpinBox.value() / 2) * X))
             y.append(sum(summa))
             summa.clear()
 
@@ -52,57 +52,57 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         min_y = min(y)
         max_y = max(y)
 
-        self.lineEdit.setText(str(max_y))
-        self.lineEdit_2.setText(str(min_y))
-        self.lineEdit_3.setText(str(max_y / min_y))
+        self.maxLine.setText(str(max_y))
+        self.minLine.setText(str(min_y))
+        self.minMaxLine.setText(str(max_y / min_y))
 
         self.ring.clear()
         self.deb.clear()
 
         for i in range(0, self.count):
-            self.ring.append(self.doubleSpinBox_2.value() / (i + 1))
-            self.deb.append(self.doubleSpinBox_2.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2 ))**(1/3))
+            self.ring.append(self.ringRadiusSpinBox.value() / (i + 1))
+            self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2 ))**(1/3))
 
-        self.tableWidget.setRowCount(self.count+1)
-        self.tableWidget.setColumnCount(3)
-        count_row_tw = self.tableWidget.rowCount()
-        count_col_tw = self.tableWidget.columnCount()
+        self.ringDebTable.setRowCount(self.count+1)
+        self.ringDebTable.setColumnCount(3)
+        count_row_tw = self.ringDebTable.rowCount()
+        count_col_tw = self.ringDebTable.columnCount()
         for row in range(0, count_row_tw):
             for col in range(0, count_col_tw):
                 new_QTableWidgetItem = QtWidgets.QTableWidgetItem()
-                self.tableWidget.setItem(row, col, new_QTableWidgetItem)
+                self.ringDebTable.setItem(row, col, new_QTableWidgetItem)
 
         for row in range(0, count_row_tw-1):
             new1_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.ring[row]))
             new2_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.deb[row]))
             new3_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(-(row - self.count) / self.count))
-            self.tableWidget.setItem(row, 0, new1_QTableWidgetItem)
-            self.tableWidget.setItem(row, 1, new2_QTableWidgetItem)
-            self.tableWidget.setItem(row, 2, new3_QTableWidgetItem)
+            self.ringDebTable.setItem(row, 0, new1_QTableWidgetItem)
+            self.ringDebTable.setItem(row, 1, new2_QTableWidgetItem)
+            self.ringDebTable.setItem(row, 2, new3_QTableWidgetItem)
 
-        self.tableWidget.setColumnWidth(0, 100)
-        self.tableWidget.setColumnWidth(1, 100)
+        self.ringDebTable.setColumnWidth(0, 100)
+        self.ringDebTable.setColumnWidth(1, 100)
         name_table = ["Радиус\nколеса", "Радиус\nдебаланса", "Коэффициент"]
-        self.tableWidget.setHorizontalHeaderLabels(name_table)
+        self.ringDebTable.setHorizontalHeaderLabels(name_table)
 
         self.new_PalletScene_paint()
 
 
-    def pushButton_2_clicked(self):
+    def plusAngleButton_clicked(self):
         if len(self.ring) > 0:
             self.angle = (self.angle +  5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
 
 
-    def pushButton_3_clicked(self):
+    def clearGrafButton_clicked(self):
         self.graf.clear()
         plt.grid()
         self.static_canvas.draw()
         self.angle = 0
 
 
-    def pushButton_4_clicked(self):
+    def minusAngleButton_clicked(self):
         if len(self.ring) > 0:
             self.angle = (self.angle - 5) % 360
             self.new_PalletScene_paint()
@@ -121,9 +121,9 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
 
     def new_PalletScene_paint(self):
-        PalletScene = QtWidgets.QGraphicsScene(0, 0, self.graphicsView.width(), self.graphicsView.height())
-        self.graphicsView.setScene(PalletScene)
-        self.graphicsView.setRenderHint(QtGui.QPainter.Antialiasing)
+        PalletScene = QtWidgets.QGraphicsScene(0, 0, self.ringView.width(), self.ringView.height())
+        self.ringView.setScene(PalletScene)
+        self.ringView.setRenderHint(QtGui.QPainter.Antialiasing)
         if len(self.ring) > 0:
             scale = 200 / self.ring[0]
             x = y = 10
@@ -168,7 +168,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             # else:
 
         PalletScene.setSceneRect(PalletScene.itemsBoundingRect())
-        self.graphicsView.fitInView(PalletScene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        self.ringView.fitInView(PalletScene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
