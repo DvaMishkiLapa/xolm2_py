@@ -1,8 +1,11 @@
 import sys
 import math
-from random import randint
-from PyQt5 import QtWidgets, QtGui, QtChart, QtCore
+from PyQt5 import QtWidgets, QtGui, QtCore
 import mainwindow
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def __init__(self):
@@ -11,9 +14,10 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         self.graphicsView.rotate(180)
 
-        self.chart = QtChart.QChart()
-        self.chartView = QtChart.QChartView(self.chart)
-        self.horizontalLayout.addWidget(self.chartView)
+        self.graf = plt.figure()
+        self.static_canvas = FigureCanvas(self.graf)
+        self.horizontalLayout.addWidget(self.static_canvas)
+        plt.grid()
 
         self.h = 0.005
 
@@ -32,30 +36,16 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         x = [x * self.h for x in range(-int(math.pi / self.h), int(math.pi / self.h))]
         y = []
 
-        self.series = QtChart.QLineSeries()
-        i = 0
         for X in x:
             summa = []
             for j in range(0, self.count):
                 summa.append((self.count - j) / self.count * math.cos((j + 1)**(self.doubleSpinBox.value() / 2) * X))
             y.append(sum(summa))
             summa.clear()
-            self.series.append(x[i], y[-1])
-            i += 1
 
-        pen = QtGui.QPen()
-        pen.setWidthF(1.2)
-        pen.setBrush(QtGui.QColor(randint(0, 255), randint(0, 255), randint(0, 255)))
-        self.series.setPen(pen)
-
-        self.horizontalLayout.itemAt(1).widget().setParent(None)
-        self.horizontalLayout.addWidget(self.chartView)
-
-        self.chart.addSeries(self.series)
-        self.chart.createDefaultAxes()
-        self.series.setName("k = " + str(self.spinBox.value()) + ", \nr = " + str(int(self.doubleSpinBox_2.value())))
-        self.chart.legend().setAlignment(QtCore.Qt.AlignBottom)
-        self.chartView.setRenderHint(QtGui.QPainter.Antialiasing)
+        self.xy_list = tuple(zip(x, y))
+        plt.plot(x, y, linewidth=1)
+        self.static_canvas.draw()
 
         min_y = min(y)
         max_y = max(y)
@@ -98,17 +88,20 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
     def pushButton_2_clicked(self):
         if len(self.ring) > 0:
-            self.angle += 4
+            self.angle = (self.angle - 1) % 360
             self.new_PalletScene_paint()
 
 
     def pushButton_3_clicked(self):
-        self.chart.removeAllSeries()
+        self.graf.clear()
+        plt.grid()
+        self.static_canvas.draw()
+        self.angle = 0
 
 
     def pushButton_4_clicked(self):
         if len(self.ring) > 0:
-            self.angle -= 4
+            self.angle = (self.angle + 1) % 360
             self.new_PalletScene_paint()
 
 
@@ -122,9 +115,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             # if 1: # if self.checkBox.isChecked():
             for i in range(0, self.count):
                 PalletScene.addEllipse(x, y, self.ring[i]*scale, self.ring[i]*scale)
-                # x += scale * self.ring[0]
                 PalletScene.addEllipse(x + scale * self.ring[0], y, self.ring[i]*scale, self.ring[i]*scale)
-                # x -= scale * self.ring[0]
                 if i != self.count - 1:
                     x += (scale * (self.ring[i] - self.ring[i+1]) / 2)
                     y += self.ring[i] * scale
@@ -134,7 +125,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             for i in range(0, self.count):
                 local_angle = -local_angle
                 ge_item = QtWidgets.QGraphicsEllipseItem()
-                ge_item.setStartAngle((i + 1) * local_angle * 16)
+                ge_item.setStartAngle((i + 1) * (local_angle + 180) * 16)
                 ge_item.setSpanAngle(2880)
                 ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
                 ge_item.setPen(QtGui.QPen(QtGui.QColor(255,0,0), 1, QtCore.Qt.SolidLine))
@@ -150,7 +141,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             for i in range(0, self.count):
                 local_angle = -local_angle
                 ge_item = QtWidgets.QGraphicsEllipseItem()
-                ge_item.setStartAngle((i + 1) * -local_angle * 16)
+                ge_item.setStartAngle((i + 1) * -(local_angle + 180) * 16)
                 ge_item.setSpanAngle(2880)
                 ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
                 ge_item.setPen(QtGui.QPen(QtGui.QColor(255,0,0), 1, QtCore.Qt.SolidLine))
@@ -163,7 +154,6 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         PalletScene.setSceneRect(PalletScene.itemsBoundingRect())
         self.graphicsView.fitInView(PalletScene.sceneRect(), QtCore.Qt.KeepAspectRatio)
-
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
