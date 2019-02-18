@@ -147,7 +147,29 @@
           </widget>
          </item>
          <item row="0" column="0" colspan="3">
-          <widget class="QTableWidget" name="ringDebTable"/>
+          <widget class="QTableWidget" name="ringDebTable">
+           <property name="gridStyle">
+            <enum>Qt::SolidLine</enum>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>130</number>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Радиус колеса</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Радиус дебаланса</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Коэффициент</string>
+            </property>
+           </column>
+          </widget>
          </item>
         </layout>
        </widget>

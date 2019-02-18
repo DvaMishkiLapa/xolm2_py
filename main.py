@@ -64,26 +64,15 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2 ))**(1/3))
 
         self.ringDebTable.setRowCount(self.count+1)
-        self.ringDebTable.setColumnCount(3)
         count_row_tw = self.ringDebTable.rowCount()
-        count_col_tw = self.ringDebTable.columnCount()
-        for row in range(0, count_row_tw):
-            for col in range(0, count_col_tw):
-                new_QTableWidgetItem = QtWidgets.QTableWidgetItem()
-                self.ringDebTable.setItem(row, col, new_QTableWidgetItem)
 
         for row in range(0, count_row_tw-1):
-            new1_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.ring[row]))
-            new2_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.deb[row]))
-            new3_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(-(row - self.count) / self.count))
-            self.ringDebTable.setItem(row, 0, new1_QTableWidgetItem)
-            self.ringDebTable.setItem(row, 1, new2_QTableWidgetItem)
-            self.ringDebTable.setItem(row, 2, new3_QTableWidgetItem)
-
-        self.ringDebTable.setColumnWidth(0, 100)
-        self.ringDebTable.setColumnWidth(1, 100)
-        name_table = ["Радиус\nколеса", "Радиус\nдебаланса", "Коэффициент"]
-        self.ringDebTable.setHorizontalHeaderLabels(name_table)
+            ring_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.ring[row]))
+            deb_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.deb[row]))
+            average_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(-(row - self.count) / self.count))
+            self.ringDebTable.setItem(row, 0, ring_QTableWidgetItem)
+            self.ringDebTable.setItem(row, 1, deb_QTableWidgetItem)
+            self.ringDebTable.setItem(row, 2, average_QTableWidgetItem)
 
         self.new_PalletScene_paint()
 

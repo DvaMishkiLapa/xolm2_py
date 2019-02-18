@@ -2,11 +2,12 @@
 
 # Form implementation generated from reading ui file '.\mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.12
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -100,9 +101,17 @@ class Ui_MainWindow(object):
         self.label_6.setObjectName("label_6")
         self.gridLayout_5.addWidget(self.label_6, 1, 0, 1, 1)
         self.ringDebTable = QtWidgets.QTableWidget(self.groupBox_3)
+        self.ringDebTable.setGridStyle(QtCore.Qt.SolidLine)
         self.ringDebTable.setObjectName("ringDebTable")
-        self.ringDebTable.setColumnCount(0)
+        self.ringDebTable.setColumnCount(3)
         self.ringDebTable.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.ringDebTable.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.ringDebTable.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.ringDebTable.setHorizontalHeaderItem(2, item)
+        self.ringDebTable.horizontalHeader().setDefaultSectionSize(130)
         self.gridLayout_5.addWidget(self.ringDebTable, 0, 0, 1, 3)
         self.horizontalLayout_4.addWidget(self.groupBox_3)
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -281,6 +290,12 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "min"))
         self.label_8.setText(_translate("MainWindow", "max/min"))
         self.label_6.setText(_translate("MainWindow", "max"))
+        item = self.ringDebTable.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Радиус колеса"))
+        item = self.ringDebTable.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Радиус дебаланса"))
+        item = self.ringDebTable.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Коэффициент"))
         self.groupBox.setTitle(_translate("MainWindow", "Параметры функции"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p>Количество звеньев</p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p>Время действия (α)</p></body></html>"))
@@ -296,6 +311,8 @@ class Ui_MainWindow(object):
         self.checkBox.setText(_translate("MainWindow", "Зубчатая передача"))
 
 
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -304,4 +321,3 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-
