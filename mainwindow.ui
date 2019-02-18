@@ -26,8 +26,26 @@
   <property name="styleSheet">
    <string notr="true">font: 11pt &quot;Segoe UI&quot;;</string>
   </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>3</number>
+    </property>
+    <property name="topMargin">
+     <number>3</number>
+    </property>
+    <property name="rightMargin">
+     <number>3</number>
+    </property>
+    <property name="bottomMargin">
+     <number>3</number>
+    </property>
+    <property name="spacing">
+     <number>2</number>
+    </property>
     <item row="0" column="1" rowspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
@@ -49,6 +67,12 @@
           <width>400</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
         </property>
         <property name="verticalScrollBarPolicy">
          <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -80,6 +104,21 @@
          <string>Результаты</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
+         <property name="leftMargin">
+          <number>3</number>
+         </property>
+         <property name="topMargin">
+          <number>3</number>
+         </property>
+         <property name="rightMargin">
+          <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>3</number>
+         </property>
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <item row="1" column="1">
           <widget class="QLabel" name="label_7">
            <property name="text">
@@ -194,6 +233,15 @@
            <string>Параметры функции</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
+           <property name="leftMargin">
+            <number>3</number>
+           </property>
+           <property name="rightMargin">
+            <number>3</number>
+           </property>
+           <property name="horizontalSpacing">
+            <number>2</number>
+           </property>
            <item row="1" column="1">
             <widget class="QLabel" name="label_3">
              <property name="sizePolicy">
@@ -283,6 +331,15 @@
            <string>Радиус колеса</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
+           <property name="leftMargin">
+            <number>3</number>
+           </property>
+           <property name="rightMargin">
+            <number>3</number>
+           </property>
+           <property name="horizontalSpacing">
+            <number>2</number>
+           </property>
            <item row="0" column="0">
             <widget class="QLabel" name="radiuLlabel">
              <property name="sizePolicy">
@@ -352,6 +409,15 @@
            <string>Построение</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
+           <property name="leftMargin">
+            <number>3</number>
+           </property>
+           <property name="rightMargin">
+            <number>3</number>
+           </property>
+           <property name="horizontalSpacing">
+            <number>2</number>
+           </property>
            <item row="1" column="1">
             <widget class="QPushButton" name="clearGrafButton">
              <property name="sizePolicy">
