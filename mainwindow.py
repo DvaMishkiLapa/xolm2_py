@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow.ui'
+# Form implementation generated from reading ui file '.\mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.2
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -20,6 +20,7 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet("font: 11pt \"Segoe UI\";")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralWidget)
@@ -191,6 +192,7 @@ class Ui_MainWindow(object):
         self.stepLabel.setObjectName("stepLabel")
         self.gridLayout_3.addWidget(self.stepLabel, 0, 1, 1, 1)
         self.ringRadiusSpinBox = QtWidgets.QDoubleSpinBox(self.groupBox_2)
+        self.ringRadiusSpinBox.setDecimals(5)
         self.ringRadiusSpinBox.setMaximum(1000.0)
         self.ringRadiusSpinBox.setProperty("value", 200.0)
         self.ringRadiusSpinBox.setObjectName("ringRadiusSpinBox")
@@ -288,9 +290,9 @@ class Ui_MainWindow(object):
         self.stepLabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Шаг уменьшения<br>радиуса</p></body></html>"))
         self.groupBox_4.setTitle(_translate("MainWindow", "Построение"))
         self.clearGrafButton.setText(_translate("MainWindow", "Очистить"))
-        self.plusAngleButton.setText(_translate("MainWindow", "|>"))
+        self.plusAngleButton.setText(_translate("MainWindow", ">>"))
         self.buildButton.setText(_translate("MainWindow", "Построить"))
-        self.minusAngleButton.setText(_translate("MainWindow", "<|"))
+        self.minusAngleButton.setText(_translate("MainWindow", "<<"))
         self.checkBox.setText(_translate("MainWindow", "Зубчатая передача"))
 
 
