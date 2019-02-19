@@ -1,9 +1,10 @@
 import sys
 import math
+from gc import collect
 from PyQt5 import QtWidgets, QtGui, QtCore
 import mainwindow
 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
@@ -13,15 +14,10 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.setupUi(self)
 
         self.ringView.rotate(180)
-
-        self.graf = plt.figure()
-        self.static_canvas = FigureCanvas(self.graf)
-        self.horizontalLayout.addWidget(self.static_canvas)
-        self.new_dot = None
-        plt.grid()
-
-        self.h = 0.005
-
+        self.graf_init()
+        self.verticalLayout_2.addWidget(self.static_canvas)
+        self.verticalLayout_2.addWidget(NavigationToolbar(self.static_canvas, self))
+        self.h = 0.0005
         self.angle = 0
         self.ring = []
         self.deb = []
@@ -30,6 +26,14 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.plusAngleButton.clicked.connect(self.plusAngleButton_clicked)
         self.clearGrafButton.clicked.connect(self.clearGrafButton_clicked)
         self.minusAngleButton.clicked.connect(self.minusAngleButton_clicked)
+
+
+    def graf_init(self):
+        plt.close("all")
+        self.graf = plt.figure()
+        self.static_canvas = FigureCanvas(self.graf)
+        self.new_dot = None
+        plt.grid()
 
 
     def buildButton_clicked(self):
@@ -84,18 +88,26 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             self.paint_new_dot()
 
 
-    def clearGrafButton_clicked(self):
-        self.graf.clear()
-        plt.grid()
-        self.static_canvas.draw()
-        self.angle = 0
-
-
     def minusAngleButton_clicked(self):
         if len(self.ring) > 0:
             self.angle = (self.angle - 5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
+
+
+    def clearGrafButton_clicked(self):
+        self.graf.clf()
+        if self.new_dot:
+            for x in self.new_dot:
+                x.remove()
+        self.ring.clear()
+        self.deb.clear()
+        self.xy_list = []
+        collect()
+
+        plt.grid()
+        self.static_canvas.draw()
+        self.angle = 0
 
 
     def paint_new_dot(self):
