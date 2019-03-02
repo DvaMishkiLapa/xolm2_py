@@ -3,11 +3,11 @@ import math
 from gc import collect
 from PyQt5 import QtWidgets, QtGui, QtCore
 import mainwindow
-
 from matplotlib.backends.backend_qt5agg import FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
+# Class main form
 class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -27,6 +27,11 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.clearGrafButton.clicked.connect(self.clearGrafButton_clicked)
         self.minusAngleButton.clicked.connect(self.minusAngleButton_clicked)
 
+    def resizeEvent(self, event):
+        self.ringDebTable.setColumnWidth(0, self.width()/10)
+        self.ringDebTable.setColumnWidth(1, self.width()/9)
+        self.ringDebTable.setColumnWidth(2, self.width()/8)
+
 
     def graf_init(self):
         plt.close("all")
@@ -39,6 +44,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def buildButton_clicked(self):
         self.angle = 0
         self.count = self.countRingSpinBox.value()
+        # Gap from -pi to pi
         x = [x * self.h for x in range(-int(math.pi / self.h), int(math.pi / self.h))]
         y = []
 
@@ -55,10 +61,9 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         min_y = min(y)
         max_y = max(y)
-
-        self.maxLine.setText(str(max_y))
-        self.minLine.setText(str(min_y))
-        self.minMaxLine.setText(str(max_y / min_y))
+        self.maxLine.setText(str(round(min_y, 8)))
+        self.minLine.setText(str(round(max_y, 8)))
+        self.minMaxLine.setText(str(round((max_y / min_y), 8)))
 
         self.ring.clear()
         self.deb.clear()
@@ -70,9 +75,10 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.ringDebTable.setRowCount(self.count+1)
         count_row_tw = self.ringDebTable.rowCount()
 
+        # Filling the table with calculations
         for row in range(0, count_row_tw-1):
-            ring_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.ring[row]))
-            deb_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(self.deb[row]))
+            ring_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(round(float(self.ring[row]), 5)))
+            deb_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(round(float(self.deb[row]), 5)))
             average_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(-(row - self.count) / self.count))
             self.ringDebTable.setItem(row, 0, ring_QTableWidgetItem)
             self.ringDebTable.setItem(row, 1, deb_QTableWidgetItem)
@@ -104,7 +110,6 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.deb.clear()
         self.xy_list = []
         collect()
-
         plt.grid()
         self.static_canvas.draw()
         self.angle = 0
@@ -170,6 +175,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         PalletScene.setSceneRect(PalletScene.itemsBoundingRect())
         self.ringView.fitInView(PalletScene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
