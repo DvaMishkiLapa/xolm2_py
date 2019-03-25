@@ -1,11 +1,16 @@
-import sys
 import math
+import sys
 from gc import collect
-from PyQt5 import QtWidgets, QtGui, QtCore
-import mainwindow
-from matplotlib.backends.backend_qt5agg import FigureCanvas, NavigationToolbar2QT as NavigationToolbar
-from matplotlib.figure import Figure
+
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvas
+from matplotlib.backends.backend_qt5agg import \
+    NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+import mainwindow
+
 
 # Class main form
 class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
@@ -32,14 +37,12 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.ringDebTable.setColumnWidth(1, self.width()/9)
         self.ringDebTable.setColumnWidth(2, self.width()/8)
 
-
     def graf_init(self):
         plt.close("all")
         self.graf = plt.figure()
         self.static_canvas = FigureCanvas(self.graf)
         self.new_dot = None
         plt.grid()
-
 
     def buildButton_clicked(self):
         self.angle = 0
@@ -70,7 +73,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         for i in range(0, self.count):
             self.ring.append(self.ringRadiusSpinBox.value() / (i + 1))
-            self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2 ))**(1/3))
+            self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2))**(1/3))
 
         self.ringDebTable.setRowCount(self.count+1)
         count_row_tw = self.ringDebTable.rowCount()
@@ -86,20 +89,17 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         self.new_PalletScene_paint()
 
-
     def plusAngleButton_clicked(self):
         if len(self.ring) > 0:
-            self.angle = (self.angle +  5) % 360
+            self.angle = (self.angle + 5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
-
 
     def minusAngleButton_clicked(self):
         if len(self.ring) > 0:
             self.angle = (self.angle - 5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
-
 
     def clearGrafButton_clicked(self):
         self.graf.clf()
@@ -114,17 +114,15 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.static_canvas.draw()
         self.angle = 0
 
-
     def paint_new_dot(self):
         if self.new_dot:
             self.new_dot.pop(0).remove()
         radian_angle = math.radians(self.angle) - math.pi
         for X, Y, in self.xy_list:
             if abs(X - radian_angle) < 0.01:
-                self.new_dot = plt.plot(X, Y, 'o', color = (0, 0, 0))
+                self.new_dot = plt.plot(X, Y, 'o', color=(0, 0, 0))
                 self.static_canvas.draw()
                 return
-
 
     def new_PalletScene_paint(self):
         PalletScene = QtWidgets.QGraphicsScene(0, 0, self.ringView.width(), self.ringView.height())
@@ -149,8 +147,8 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
                 ge_item.setStartAngle((i + 1) * (local_angle + 180) * 16)
                 ge_item.setSpanAngle(2880)
                 ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
-                ge_item.setPen(QtGui.QPen(QtGui.QColor(255,0,0), 1, QtCore.Qt.SolidLine))
-                ge_item.setBrush(QtGui.QBrush(QtGui.QColor(255,0,0), QtCore.Qt.DiagCrossPattern))
+                ge_item.setPen(QtGui.QPen(QtGui.QColor(255, 0, 0), 1, QtCore.Qt.SolidLine))
+                ge_item.setBrush(QtGui.QBrush(QtGui.QColor(255, 0, 0), QtCore.Qt.DiagCrossPattern))
                 PalletScene.addItem(ge_item)
                 if i != self.count-1:
                     x += (self.deb[i] * scale - self.deb[i+1] * scale) / 2
@@ -165,16 +163,17 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
                 ge_item.setStartAngle((i + 1) * -(local_angle + 180) * 16)
                 ge_item.setSpanAngle(2880)
                 ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
-                ge_item.setPen(QtGui.QPen(QtGui.QColor(255,0,0), 1, QtCore.Qt.SolidLine))
-                ge_item.setBrush(QtGui.QBrush(QtGui.QColor(255,0,0), QtCore.Qt.DiagCrossPattern))
+                ge_item.setPen(QtGui.QPen(QtGui.QColor(255, 0, 0), 1, QtCore.Qt.SolidLine))
+                ge_item.setBrush(QtGui.QBrush(QtGui.QColor(255, 0, 0), QtCore.Qt.DiagCrossPattern))
                 PalletScene.addItem(ge_item)
                 if i != self.count-1:
                     x += (self.deb[i] * scale - self.deb[i+1] * scale) / 2
-                    y += self.deb[i] * scale + (self.ring[i] * scale - self.deb[i] * scale) / 2 + (self.ring[i+1] * scale - self.deb[i+1] * scale) / 2
+                    y += self.deb[i] * scale + (self.ring[i] * scale - self.deb[i] * scale) / 2 + (
+                        self.ring[i+1] * scale - self.deb[i+1] * scale) / 2
             # else:
 
         PalletScene.setSceneRect(PalletScene.itemsBoundingRect())
-        self.ringView.fitInView(PalletScene.sceneRect(), QtCore.Qt.KeepAspectRatio)
+        self.ringView.fitInView(PalletScene.sceneRect(),QtCore.Qt.KeepAspectRatio)
 
 
 def main():
@@ -182,6 +181,7 @@ def main():
     main_window = xolm()
     main_window.show()
     app.exec_()
+
 
 if __name__ == '__main__':
     main()
