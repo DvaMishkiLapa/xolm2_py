@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import math
 import sys
 from gc import collect
@@ -33,9 +35,9 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.minusAngleButton.clicked.connect(self.minusAngleButton_clicked)
 
     def resizeEvent(self, event):
-        self.ringDebTable.setColumnWidth(0, self.width()/10)
-        self.ringDebTable.setColumnWidth(1, self.width()/9)
-        self.ringDebTable.setColumnWidth(2, self.width()/8)
+        self.ringDebTable.setColumnWidth(0, self.width() / 10)
+        self.ringDebTable.setColumnWidth(1, self.width() / 9)
+        self.ringDebTable.setColumnWidth(2, self.width() / 8)
 
     def graf_init(self):
         plt.close("all")
@@ -73,13 +75,13 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         for i in range(0, self.count):
             self.ring.append(self.ringRadiusSpinBox.value() / (i + 1))
-            self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2))**(1/3))
+            self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2))**(1 / 3))
 
-        self.ringDebTable.setRowCount(self.count+1)
+        self.ringDebTable.setRowCount(self.count + 1)
         count_row_tw = self.ringDebTable.rowCount()
 
         # Filling the table with calculations
-        for row in range(0, count_row_tw-1):
+        for row in range(0, count_row_tw - 1):
             ring_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(round(float(self.ring[row]), 5)))
             deb_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(round(float(self.deb[row]), 5)))
             average_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(-(row - self.count) / self.count))
@@ -133,10 +135,10 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             x = y = 10
             # if 1: # if self.checkBox.isChecked():
             for i in range(0, self.count):
-                PalletScene.addEllipse(x, y, self.ring[i]*scale, self.ring[i]*scale)
-                PalletScene.addEllipse(x + scale * self.ring[0], y, self.ring[i]*scale, self.ring[i]*scale)
+                PalletScene.addEllipse(x, y, self.ring[i] * scale, self.ring[i] * scale)
+                PalletScene.addEllipse(x + scale * self.ring[0], y, self.ring[i] * scale, self.ring[i] * scale)
                 if i != self.count - 1:
-                    x += (scale * (self.ring[i] - self.ring[i+1]) / 2)
+                    x += (scale * (self.ring[i] - self.ring[i + 1]) / 2)
                     y += self.ring[i] * scale
 
             x = y = 10 + scale * (self.ring[0] - self.deb[0]) / 2
@@ -146,13 +148,13 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
                 ge_item = QtWidgets.QGraphicsEllipseItem()
                 ge_item.setStartAngle((i + 1) * (local_angle + 180) * 16)
                 ge_item.setSpanAngle(2880)
-                ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
+                ge_item.setRect(x, y, self.deb[i] * scale, self.deb[i] * scale)
                 ge_item.setPen(QtGui.QPen(QtGui.QColor(255, 0, 0), 1, QtCore.Qt.SolidLine))
                 ge_item.setBrush(QtGui.QBrush(QtGui.QColor(255, 0, 0), QtCore.Qt.DiagCrossPattern))
                 PalletScene.addItem(ge_item)
-                if i != self.count-1:
-                    x += (self.deb[i] * scale - self.deb[i+1] * scale) / 2
-                    y += self.deb[i] * scale + (self.ring[i] * scale - self.deb[i] * scale) / 2 + (self.ring[i+1] * scale - self.deb[i+1] * scale) / 2
+                if i != self.count - 1:
+                    x += (self.deb[i] * scale - self.deb[i + 1] * scale) / 2
+                    y += self.deb[i] * scale + (self.ring[i] * scale - self.deb[i] * scale) / 2 + (self.ring[i + 1] * scale - self.deb[i + 1] * scale) / 2
 
             x = 10 + scale * self.ring[0] + (self.ring[0] * scale - self.deb[0] * scale) / 2
             y = 10 + (self.ring[0] * scale - self.deb[0] * scale) / 2
@@ -162,18 +164,17 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
                 ge_item = QtWidgets.QGraphicsEllipseItem()
                 ge_item.setStartAngle((i + 1) * -(local_angle + 180) * 16)
                 ge_item.setSpanAngle(2880)
-                ge_item.setRect(x, y, self.deb[i]*scale, self.deb[i]*scale)
+                ge_item.setRect(x, y, self.deb[i] * scale, self.deb[i] * scale)
                 ge_item.setPen(QtGui.QPen(QtGui.QColor(255, 0, 0), 1, QtCore.Qt.SolidLine))
                 ge_item.setBrush(QtGui.QBrush(QtGui.QColor(255, 0, 0), QtCore.Qt.DiagCrossPattern))
                 PalletScene.addItem(ge_item)
-                if i != self.count-1:
-                    x += (self.deb[i] * scale - self.deb[i+1] * scale) / 2
-                    y += self.deb[i] * scale + (self.ring[i] * scale - self.deb[i] * scale) / 2 + (
-                        self.ring[i+1] * scale - self.deb[i+1] * scale) / 2
+                if i != self.count - 1:
+                    x += (self.deb[i] * scale - self.deb[i + 1] * scale) / 2
+                    y += self.deb[i] * scale + (self.ring[i] * scale - self.deb[i] * scale) / 2 + (self.ring[i + 1] * scale - self.deb[i + 1] * scale) / 2
             # else:
 
         PalletScene.setSceneRect(PalletScene.itemsBoundingRect())
-        self.ringView.fitInView(PalletScene.sceneRect(),QtCore.Qt.KeepAspectRatio)
+        self.ringView.fitInView(PalletScene.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
 
 def main():
