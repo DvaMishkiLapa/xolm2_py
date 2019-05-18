@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\mainwindow.ui'
+# Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.12
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1252, 631)
+        MainWindow.resize(1260, 631)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -197,6 +196,7 @@ class Ui_MainWindow(object):
         self.ringRadiusSpinBox.setObjectName("ringRadiusSpinBox")
         self.gridLayout_3.addWidget(self.ringRadiusSpinBox, 1, 0, 1, 1)
         self.stepSpinBox = QtWidgets.QDoubleSpinBox(self.groupBox_2)
+        self.stepSpinBox.setEnabled(False)
         self.stepSpinBox.setObjectName("stepSpinBox")
         self.gridLayout_3.addWidget(self.stepSpinBox, 1, 1, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_2)
@@ -222,6 +222,7 @@ class Ui_MainWindow(object):
         self.clearGrafButton.setObjectName("clearGrafButton")
         self.gridLayout_4.addWidget(self.clearGrafButton, 1, 1, 1, 1)
         self.checkBox = QtWidgets.QCheckBox(self.groupBox_4)
+        self.checkBox.setEnabled(False)
         self.checkBox.setChecked(True)
         self.checkBox.setObjectName("checkBox")
         self.gridLayout_4.addWidget(self.checkBox, 0, 0, 1, 2)
@@ -318,8 +319,6 @@ class Ui_MainWindow(object):
         self.plusAngleButton.setText(_translate("MainWindow", ">>"))
 
 
-
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -328,3 +327,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+

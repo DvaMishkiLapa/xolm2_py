@@ -91,17 +91,20 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
         self.new_PalletScene_paint()
 
+
     def plusAngleButton_clicked(self):
         if len(self.ring) > 0:
             self.angle = (self.angle + 5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
 
+
     def minusAngleButton_clicked(self):
         if len(self.ring) > 0:
             self.angle = (self.angle - 5) % 360
             self.new_PalletScene_paint()
             self.paint_new_dot()
+
 
     def clearGrafButton_clicked(self):
         self.graf.clf()
@@ -116,6 +119,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.static_canvas.draw()
         self.angle = 0
 
+
     def paint_new_dot(self):
         if self.new_dot:
             self.new_dot.pop(0).remove()
@@ -125,6 +129,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
                 self.new_dot = plt.plot(X, Y, 'o', color=(0, 0, 0))
                 self.static_canvas.draw()
                 return
+
 
     def new_PalletScene_paint(self):
         PalletScene = QtWidgets.QGraphicsScene(0, 0, self.ringView.width(), self.ringView.height())
