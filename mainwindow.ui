@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1260</width>
-    <height>631</height>
+    <height>768</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -192,7 +192,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -200,12 +200,12 @@
           <property name="minimumSize">
            <size>
             <width>320</width>
-            <height>0</height>
+            <height>175</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+            <width>320</width>
             <height>125</height>
            </size>
           </property>
@@ -222,22 +222,6 @@
            <property name="horizontalSpacing">
             <number>6</number>
            </property>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Количество звеньев&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="1">
             <widget class="QSpinBox" name="countRingSpinBox">
              <property name="sizePolicy">
@@ -251,16 +235,16 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_2">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_3">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Время действия (α)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Количество звеньев&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -280,14 +264,60 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QRadioButton" name="radioButton">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
-              <string>f(x) = ∑(n-k)/n*cos((k+1)^(α/2) x)</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Время действия (α)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="checked">
-              <bool>true</bool>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox_formula">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <property name="leftMargin">
+               <number>1</number>
+              </property>
+              <property name="topMargin">
+               <number>1</number>
+              </property>
+              <property name="rightMargin">
+               <number>1</number>
+              </property>
+              <property name="bottomMargin">
+               <number>1</number>
+              </property>
+              <property name="spacing">
+               <number>1</number>
+              </property>
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="formulaLayout">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+               </layout>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
@@ -304,12 +334,12 @@
           <property name="minimumSize">
            <size>
             <width>320</width>
-            <height>0</height>
+            <height>120</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+            <width>320</width>
             <height>95</height>
            </size>
           </property>
@@ -329,7 +359,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="radiuLlabel">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -345,13 +375,13 @@
            <item row="0" column="1">
             <widget class="QLabel" name="stepLabel">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Шаг уменьшения&lt;br&gt;радиуса&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Шаг уменьшения&lt;br/&gt;радиуса&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -397,7 +427,7 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+            <width>320</width>
             <height>16777215</height>
            </size>
           </property>

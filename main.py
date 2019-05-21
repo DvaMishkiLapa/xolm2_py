@@ -34,10 +34,23 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.clearGrafButton.clicked.connect(self.clearGrafButton_clicked)
         self.minusAngleButton.clicked.connect(self.minusAngleButton_clicked)
 
+        bg = self.palette().window().color()
+        cl = (bg.redF(), bg.greenF(), bg.blueF())
+
+        self.fig = Figure(edgecolor = cl, facecolor = cl)
+        self.canvas = FigureCanvas(self.fig)
+        self.fig.clear()
+        self.fig.suptitle(r'${\sum_{k=1}^{n}\frac{n-k}{n}\cos((k+1)^{\alpha/2}x)}$',
+                        x = 0.0, y = 0.0, size = 16,
+                        horizontalalignment = 'left',
+                        verticalalignment = 'bottom')
+        self.formulaLayout.addWidget(self.canvas)
+        self.canvas.draw()
+
     def resizeEvent(self, event):
-        self.ringDebTable.setColumnWidth(0, self.width() / 10)
-        self.ringDebTable.setColumnWidth(1, self.width() / 9)
-        self.ringDebTable.setColumnWidth(2, self.width() / 8)
+        self.ringDebTable.setColumnWidth(0, self.width() / 9)
+        self.ringDebTable.setColumnWidth(1, self.width() / 8)
+        self.ringDebTable.setColumnWidth(2, self.width() / 7)
 
     def graf_init(self):
         plt.close("all")
