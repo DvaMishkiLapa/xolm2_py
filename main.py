@@ -40,7 +40,7 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.fig = Figure(edgecolor = cl, facecolor = cl)
         self.canvas = FigureCanvas(self.fig)
         self.fig.clear()
-        self.fig.suptitle(r'${\sum_{k=1}^{n}\frac{n-k}{n}\cos((k+1)^{\alpha/2}x)}$',
+        self.fig.suptitle(r'${\sum_{k=1}^{n} \frac{n-k}{n} \cdot \cos((k + 1)^{\alpha / 2} \cdot x)}$',
                         x = 0.0, y = 0.0, size = 16,
                         horizontalalignment = 'left',
                         verticalalignment = 'bottom')
