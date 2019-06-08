@@ -119,6 +119,8 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         if self.new_dot:
             for x in self.new_dot:
                 x.remove()
+            del(self.new_dot)
+            self.new_dot = None
         self.ring.clear()
         self.deb.clear()
         self.xy_list = []
