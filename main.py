@@ -55,6 +55,8 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         plt.grid()
 
     def buildButton_clicked(self):
+        self.ringDebTable.clearContents()  # Table cleaning
+        self.ringDebTable.setRowCount(0)
         self.angle = 0
         self.count = self.countRingSpinBox.value()
         # Gap from -pi to pi
@@ -85,11 +87,10 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             self.ring.append(self.ringRadiusSpinBox.value() / (i + 1))
             self.deb.append(self.ringRadiusSpinBox.value() * (4 * (self.count - i) / ((i + 1)**2 * (self.count + 1)**2))**(1 / 3))
 
-        self.ringDebTable.setRowCount(self.count + 1)
+        self.ringDebTable.setRowCount(self.count)
         count_row_tw = self.ringDebTable.rowCount()
-
         # Filling the table with calculations
-        for row in range(0, count_row_tw - 1):
+        for row in range(0, count_row_tw):
             ring_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(round(float(self.ring[row]), 5)))
             deb_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(round(float(self.deb[row]), 5)))
             average_QTableWidgetItem = QtWidgets.QTableWidgetItem(str(-(row - self.count) / self.count))
@@ -124,6 +125,8 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.ring.clear()
         self.deb.clear()
         self.xy_list = []
+        self.ringDebTable.clearContents()  # Table cleaning
+        self.ringDebTable.setRowCount(0)
         collect()
         plt.grid()
         self.static_canvas.draw()
