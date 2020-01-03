@@ -43,9 +43,9 @@ class xolm(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.canvas.draw()
 
     def resizeEvent(self, event):
-        self.ringDebTable.setColumnWidth(0, self.width() / 9)
-        self.ringDebTable.setColumnWidth(1, self.width() / 8)
-        self.ringDebTable.setColumnWidth(2, self.width() / 7)
+        self.ringDebTable.setColumnWidth(0, int(self.width() / 9))
+        self.ringDebTable.setColumnWidth(1, int(self.width() / 8))
+        self.ringDebTable.setColumnWidth(2, int(self.width() / 7))
 
     def graf_init(self):
         plt.close("all")
